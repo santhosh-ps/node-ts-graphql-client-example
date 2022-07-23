@@ -1,0 +1,1 @@
+CREATE TABLE "public"."issues" ("id" uuid NOT NULL, "name" varchar NOT NULL, "projectId" uuid NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("projectId") REFERENCES "public"."projects"("id") ON UPDATE restrict ON DELETE restrict);

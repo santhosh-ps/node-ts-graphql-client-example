@@ -5,6 +5,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 const app = express();
+app.use(express.json());
+
 const port = 3000;
 const endpoint = 'http://localhost:8080/v1/graphql'
 

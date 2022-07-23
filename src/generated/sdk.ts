@@ -644,26 +644,12 @@ export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetProjectsQuery = { __typename?: 'query_root', projects: Array<{ __typename?: 'projects', id: any, name: string }> };
 
-export type GetProjectAndIssuesQueryVariables = Exact<{
-  projectNameSearch: Scalars['String'];
-}>;
-
-
-export type GetProjectAndIssuesQuery = { __typename?: 'query_root', projects: Array<{ __typename?: 'projects', id: any, name: string, issues: Array<{ __typename?: 'issues', id: any, name: string }> }> };
-
 export type CreateProjectsMutationVariables = Exact<{
   projects: Array<Projects_Insert_Input> | Projects_Insert_Input;
 }>;
 
 
 export type CreateProjectsMutation = { __typename?: 'mutation_root', insert_projects?: { __typename?: 'projects_mutation_response', returning: Array<{ __typename?: 'projects', id: any, name: string }> } | null };
-
-export type MultiMutationTestMutationVariables = Exact<{
-  projects: Array<Projects_Insert_Input> | Projects_Insert_Input;
-}>;
-
-
-export type MultiMutationTestMutation = { __typename?: 'mutation_root', insert_projects?: { __typename?: 'projects_mutation_response', returning: Array<{ __typename?: 'projects', id: any, name: string }> } | null, update_projects?: { __typename?: 'projects_mutation_response', returning: Array<{ __typename?: 'projects', id: any, name: string }> } | null };
 
 
 export const GetProjectsDocument = gql`
@@ -674,37 +660,9 @@ export const GetProjectsDocument = gql`
   }
 }
     `;
-export const GetProjectAndIssuesDocument = gql`
-    query getProjectAndIssues($projectNameSearch: String!) {
-  projects(where: {name: {_ilike: $projectNameSearch}}) {
-    id
-    name
-    issues {
-      id
-      name
-    }
-  }
-}
-    `;
 export const CreateProjectsDocument = gql`
     mutation createProjects($projects: [projects_insert_input!]!) {
   insert_projects(objects: $projects) {
-    returning {
-      id
-      name
-    }
-  }
-}
-    `;
-export const MultiMutationTestDocument = gql`
-    mutation multiMutationTest($projects: [projects_insert_input!]!) {
-  insert_projects(objects: $projects) {
-    returning {
-      id
-      name
-    }
-  }
-  update_projects(where: {name: {_ilike: "%test%"}}, _set: {name: "name-test"}) {
     returning {
       id
       name
@@ -723,14 +681,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getProjects(variables?: GetProjectsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProjectsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProjectsQuery>(GetProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProjects', 'query');
     },
-    getProjectAndIssues(variables: GetProjectAndIssuesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProjectAndIssuesQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetProjectAndIssuesQuery>(GetProjectAndIssuesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProjectAndIssues', 'query');
-    },
     createProjects(variables: CreateProjectsMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateProjectsMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateProjectsMutation>(CreateProjectsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createProjects', 'mutation');
-    },
-    multiMutationTest(variables: MultiMutationTestMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MultiMutationTestMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<MultiMutationTestMutation>(MultiMutationTestDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'multiMutationTest', 'mutation');
     }
   };
 }

@@ -1,0 +1,11 @@
+table:
+  schema: public
+  name: projects
+array_relationships:
+  - name: issues
+    using:
+      foreign_key_constraint_on:
+        column: projectId
+        table:
+          schema: public
+          name: issues

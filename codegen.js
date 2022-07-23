@@ -1,7 +1,10 @@
+const dotenv = require('dotenv')
+
+dotenv.config()
 module.exports = {
     schema: [
         {
-            'https://perfect-redbird-87.hasura.app/v1/graphql': {
+            'http://localhost:8080/v1/graphql': {
                 headers: {
                     'x-hasura-admin-secret':  process.env.ADMIN_SECRET,
                 },

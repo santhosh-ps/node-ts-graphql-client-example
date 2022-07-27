@@ -1,5 +1,7 @@
 name: 'preview-apps'
 on: # rebuild any PRs and main branch changes
+  workflow_dispatch:
+    name: 'Hasura Preview'
   pull_request:
   push:
     branches:

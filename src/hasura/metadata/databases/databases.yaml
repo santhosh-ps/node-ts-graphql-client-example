@@ -4,6 +4,6 @@
     connection_info:
       use_prepared_statements: false
       database_url: 
-        from_env: HASURA_GRAPHQL_METADATA_DATABASE_URL
+        from_env: PG_DATABASE_URL
       isolation_level: read-committed
   tables: "!include default/tables/tables.yaml"
